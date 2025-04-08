@@ -1,0 +1,39 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Breathing Circle Animation */
+.breathing-circle-container {
+    position: relative;
+    height: 200px;
+}
+
+.breathing-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #7fb3d5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
+}
+
+/* States for the breathing circle - we'll toggle these with JavaScript */
+.breathe-in {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: #5dade2;
+}
+
+.hold {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: #5dade2;
+    border: 3px solid #f4d03f;
+}
+
+.breathe-out {
+    transform: translate(-50%, -50%) scale(1);
+    background-color: #7fb3d5;
+}
