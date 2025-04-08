@@ -3,6 +3,16 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Technique Cards */
+.technique-card {
+    transition: transform 0.2s ease;
+}
+
+.technique-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
 /* Breathing Circle Animation */
 .breathing-circle-container {
     position: relative;
@@ -18,10 +28,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.8s ease-in-out;
 }
 
-/* States for the breathing circle - we'll toggle these with JavaScript */
+/* States for the breathing circle */
 .breathe-in {
     transform: translate(-50%, -50%) scale(1.5);
     background-color: #5dade2;
