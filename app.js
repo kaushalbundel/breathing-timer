@@ -3,7 +3,7 @@ const app = Vue.createApp({
     return {
       currentView: "techniques-list",
       selectedTechnique: null,
-      availableTechnique: [
+      availableTechniques: [
         {
           id: "478",
           name: "4-7-8 Breathing",
@@ -20,7 +20,7 @@ const app = Vue.createApp({
     };
   },
   methods: {
-    selectedTechnique(techniqueId) {
+    selectTechnique(techniqueId) {
       (this.selectedTechnique = techniqueId),
         (this.currentView = "timer-setup");
     },
