@@ -1,3 +1,5 @@
+import { useTimer } from "../composables/useTimer";
+
 // "technique" is appended before the id as defined in the available techniques list in the data method of the main (app.js) component
 app.component("technique-478", {
   template: "#technique-478-template",
@@ -20,10 +22,21 @@ app.component("technique-478", {
   },
   computed: {
     currentPhase() {
-      return this.phase[this.currentPhaseIndex];
+      return this.phases[this.currentPhaseIndex];
     },
   },
   methods: {
+    formatTime(seconds) {
+      //imports time from composable
+      const { formatTime } = useTimer();
+      return formatTime(seconds);
+    },
+
+    playAudio(phaseName) {
+      //import from composable
+      const { playAudio } = playAudio();
+      playAudio(phaseName);
+    },
     startTimer() {
       //timer initiation
       this.isActive = true;
@@ -34,6 +47,43 @@ app.component("technique-478", {
 
       // playing music
       //this.playAudio('breathe-in');
+
+      this.timerInterval = setInterval(() => {
+        if (this.isPaused) {
+          return;
+        }
+
+        // decrease session time
+        this.sessionTimeRemaining--;
+
+        //decrease the phase time
+        this.phaseTimeRemaining--;
+
+        // checking if the phase time is complete and moving to another phase time
+        if (this.phaseTimeRemaining <= 0) {
+          this.currentPhaseIndex =
+            (this.currentPhaseIndex + 1) % this.phases.length;
+          this.phaseTimeRemaining = this.currentPhase.duration;
+
+          //play audio for current phase
+          // this.playAudio(`${this.currentPhase.name}`);
+        }
+        //checking if the session time is complete
+        if (this.sessionTimeRemaining <= 0) {
+          this.endSession;
+          alert("Breathing Session Complete");
+        }
+      }, 1000);
+    },
+    endSession() {
+      if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+      }
+      this.isActive = false;
+    },
+    togglePause() {
+      this.isPaused = !this.isPaused;
     },
   },
 });

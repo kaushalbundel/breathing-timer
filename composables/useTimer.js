@@ -18,7 +18,7 @@ export function useTimer() {
   //clearning timer reference
   function clearTimer(timerRef) {
     if (timerRef) {
-      clearTimer(timerRef);
+      clearInterval(timerRef); // clear Interval is a built in function that is used to remove the intervals as set by setIntervals function
       return null;
     }
     return timerRef;
