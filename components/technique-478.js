@@ -1,5 +1,3 @@
-import { useTimer } from "../composables/useTimer";
-
 // "technique" is appended before the id as defined in the available techniques list in the data method of the main (app.js) component
 app.component("technique-478", {
   template: "#technique-478-template",
@@ -70,7 +68,7 @@ app.component("technique-478", {
         }
         //checking if the session time is complete
         if (this.sessionTimeRemaining <= 0) {
-          this.endSession;
+          this.endSession();
           alert("Breathing Session Complete");
         }
       }, 1000);

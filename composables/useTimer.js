@@ -25,7 +25,7 @@ export function useTimer() {
   }
 
   return {
-    useTimer,
+    formatTime,
     playAudio,
     clearTimer,
   };
