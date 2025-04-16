@@ -1,4 +1,7 @@
-const app = Vue.createApp({
+import { createApp } from "https://unpkg.com/vue@3.3.4/dist/vue.esm-browser.js";
+import Technique478 from "./components/technique-478.js";
+
+const app = createApp({
   data() {
     return {
       currentView: "techniques-list",
@@ -32,6 +35,9 @@ const app = Vue.createApp({
     // computed data
   },
 });
+
+// register components
+app.component("technique-478", Technique478);
 
 // App mount
 app.mount("#app");
