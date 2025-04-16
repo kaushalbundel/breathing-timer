@@ -1,6 +1,6 @@
-import { useTimer } from "../composables/useTimer";
+import { useTimer } from "../composables/useTimer.js";
 // "technique" is appended before the id as defined in the available techniques list in the data method of the main (app.js) component
-app.component("technique-478", {
+export default {
   template: "#technique-478-template",
   data() {
     return {
@@ -85,4 +85,4 @@ app.component("technique-478", {
       this.isPaused = !this.isPaused;
     },
   },
-});
+};
