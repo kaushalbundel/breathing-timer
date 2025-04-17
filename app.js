@@ -1,6 +1,6 @@
 import { createApp } from "https://unpkg.com/vue@3.3.4/dist/vue.esm-browser.js";
 import Technique478 from "./components/technique-478.js";
-
+import TechniqueBox from "./components/technique-box.js";
 const app = createApp({
   data() {
     return {
@@ -38,6 +38,7 @@ const app = createApp({
 
 // register components
 app.component("technique-478", Technique478);
+app.component("technique-box", TechniqueBox);
 
 // App mount
 app.mount("#app");

@@ -87,12 +87,12 @@
                 <h5>How to Practice</h5>
                 <ul class="list-unstyled">
                   <li>
-                    <i class="bi bi-arrow-down-circle"></i> Breathe in for 4
+                    <i class="bi bi-arrow-up-circle"></i> Breathe in for 4
                     seconds
                   </li>
                   <li><i class="bi bi-pause-circle"></i> Hold for 7 seconds</li>
                   <li>
-                    <i class="bi bi-arrow-up-circle"></i> Breathe out for 8
+                    <i class="bi bi-arrow-down-circle"></i> Breathe out for 8
                     seconds
                   </li>
                 </ul>
@@ -115,7 +115,7 @@
                   id="minutes"
                   v-model="minutes"
                   min="1"
-                  max="60"
+                  max="15"
                 />
               </div>
               <div class="d-grid gap-2">
@@ -177,6 +177,111 @@
       </div>
     </template>
 
+    <!-- Template for Box Breathing Technique -->
+    <template id="technique-box-template">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+              <h2>Box Breathing</h2>
+            </div>
+
+            <!-- Instructions Section -->
+            <div class="card-body bg-light border-bottom">
+              <div class="text-center">
+                <h5>How to Practice</h5>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="bi bi-arrow-up-circle"></i> Breathe in for 4
+                    seconds
+                  </li>
+                  <li><i class="bi bi-pause-circle"></i> Hold for 4 seconds</li>
+                  <li>
+                    <i class="bi bi-arrow-down-circle"></i> Breathe out for 4
+                    seconds
+                  </li>
+                  <li><i class="bi bi-pause-circle"></i> Hold for 4 seconds</li>
+                </ul>
+                <p class="small text-muted">
+                  Find a comfortable position and follow the visual guide.
+                </p>
+              </div>
+            </div>
+
+            <!-- Timer Setup View -->
+            <div class="card-body" v-if="!isActive">
+              <h4 class="text-center mb-4">
+                How long would you like to breathe?
+              </h4>
+              <div class="mb-3">
+                <label for="minutes" class="form-label">Minutes:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="minutes"
+                  v-model="minutes"
+                  min="1"
+                  max="15"
+                />
+              </div>
+              <div class="d-grid gap-2">
+                <button @click="startTimer" class="btn btn-primary btn-lg">
+                  Start Breathing
+                </button>
+                <button
+                  @click="$emit('go-back')"
+                  class="btn btn-outline-secondary"
+                >
+                  Back to Techniques
+                </button>
+              </div>
+            </div>
+
+            <!-- Active Timer View -->
+            <div class="card-body" v-else>
+              <div class="text-center mb-4">
+                <h3>{{ currentPhase.instruction }}</h3>
+                <h4>{{ phaseTimeRemaining }}</h4>
+              </div>
+
+              <!-- Breathing Visualization -->
+              <div class="breathing-circle-container text-center mb-4">
+                <div class="breathing-circle" :class="currentPhase.name"></div>
+              </div>
+
+              <!-- Timer Progress -->
+              <div class="timer-progress mb-4">
+                <div class="d-flex justify-content-between mb-1">
+                  <span>Time Remaining:</span>
+                  <span>{{ formatTime(sessionTimeRemaining) }}</span>
+                </div>
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    :style="{ width: (sessionTimeRemaining / (minutes * 60) * 100) + '%' }"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Controls -->
+              <div class="d-grid gap-2">
+                <button
+                  @click="togglePause"
+                  class="btn"
+                  :class="isPaused ? 'btn-success' : 'btn-warning'"
+                >
+                  {{ isPaused ? 'Resume' : 'Pause' }}
+                </button>
+                <button @click="endSession" class="btn btn-danger">
+                  End Session
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <!-- Vue.js -->
     <!-- Change: global module to esm-browser-->
     <script src="https://unpkg.com/vue@3.3.4/dist/vue.esm-browser.js"></script>

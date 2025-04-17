@@ -1,21 +1,22 @@
 import { useTimer } from "../composables/useTimer.js";
-// "technique" is appended before the id as defined in the available techniques list in the data method of the main (app.js) component
+
 export default {
-  template: "#technique-478-template",
+  template: "#technique-box-template",
   data() {
     return {
-      name: "4-7-8 Breathing",
-      minutes: 5, // unless specifed by the user, the default value is 5 minutes
+      name: "Box Breathing",
+      minutes: 5,
       isActive: false,
       isPaused: false,
       currentPhaseIndex: 0,
       phaseTimeRemaining: 4,
       sessionTimeRemaining: 0,
-      timerInterval: null, // stores the timer related logic, is needed so as to clear out the time related information as the timer is stopped in between by the user
+      timerInterval: null,
       phases: [
         { name: "breathe-in", duration: 4, instruction: "Breathe In" },
-        { name: "hold", duration: 7, instruction: "Hold" },
-        { name: "breathe-out", duration: 8, instruction: "Breathe Out" },
+        { name: "hold", duration: 4, instruction: "Hold" },
+        { name: "breathe-in", duration: 4, instruction: "Breathe In" },
+        { name: "hold", duration: 4, instruction: "Hold" },
       ],
     };
   },
@@ -26,48 +27,44 @@ export default {
   },
   methods: {
     formatTime(seconds) {
-      //imports time from composable
       const { formatTime } = useTimer();
       return formatTime(seconds);
     },
 
     playAudio(phaseName) {
-      //import from composable
       const { playAudio } = useTimer();
       playAudio(phaseName);
     },
+
     startTimer() {
-      //timer initiation
       this.isActive = true;
       this.isPaused = false;
       this.currentPhaseIndex = 0;
-      this.phaseTimeRemaining = this.phases[0].duration;
+      this.phaseTimeRemaining = this.phases.duration;
       this.sessionTimeRemaining = this.minutes * 60;
 
-      // playing music
-      //this.playAudio('breathe-in');
+      //play music
+      // this.playAudio("breathe-in")
 
       this.timerInterval = setInterval(() => {
-        if (this.isPaused) {
-          return;
-        }
-
-        // decrease session time
+        // if pause is clicked => return
+        if (this.isPaused) return;
+        // reduce sessionTimeRemaining
         this.sessionTimeRemaining--;
-
-        //decrease the phase time
+        //reduce phaseTimeRemaining
         this.phaseTimeRemaining--;
 
-        // checking if the phase time is complete and moving to another phase time
+        // if phaseTimeRemaining is over then switch to next phase
         if (this.phaseTimeRemaining <= 0) {
           this.currentPhaseIndex =
             (this.currentPhaseIndex + 1) % this.phases.length;
           this.phaseTimeRemaining = this.currentPhase.duration;
 
           //play audio for current phase
-          // this.playAudio(`${this.currentPhase.name}`);
+          //this.playAudio(`${this.currentPhase.name}`)
         }
-        //checking if the session time is complete
+
+        //if sessionTimeRemaining is over then end the session
         if (this.sessionTimeRemaining <= 0) {
           this.endSession();
           alert("Breathing Session Complete");
@@ -79,10 +76,10 @@ export default {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
       }
-      this.isActive = false;
+      this.inactive = false;
     },
     togglePause() {
-      this.isPaused = !this.isPaused;
+      this.togglePause = !this.togglePause;
     },
   },
 };
