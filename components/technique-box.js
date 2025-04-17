@@ -40,7 +40,7 @@ export default {
       this.isActive = true;
       this.isPaused = false;
       this.currentPhaseIndex = 0;
-      this.phaseTimeRemaining = this.phases.duration;
+      this.phaseTimeRemaining = this.phases[0].duration;
       this.sessionTimeRemaining = this.minutes * 60;
 
       //play music
@@ -48,7 +48,9 @@ export default {
 
       this.timerInterval = setInterval(() => {
         // if pause is clicked => return
-        if (this.isPaused) return;
+        if (this.isPaused) {
+          return;
+        }
         // reduce sessionTimeRemaining
         this.sessionTimeRemaining--;
         //reduce phaseTimeRemaining
@@ -76,10 +78,10 @@ export default {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
       }
-      this.inactive = false;
+      this.isActive = false;
     },
     togglePause() {
-      this.togglePause = !this.togglePause;
+      this.isPaused = !this.isPaused;
     },
   },
 };
